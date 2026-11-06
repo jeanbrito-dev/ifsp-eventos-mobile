@@ -1,56 +1,90 @@
-# Welcome to your Expo app 👋
+# IFSP Eventos — Mobile
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Aplicativo de divulgação e acompanhamento de eventos do IFSP Caraguatatuba, para estudantes, servidores e comunidade.
 
-## Get started
+## Stack
 
-1. Install dependencies
+- React Native + Expo SDK 57
+- TypeScript + Expo Router (navegação)
+- NativeWind 4.2.7 + Tailwind CSS 3 (estilos)
+- React Query + Axios (consumo e cache da API)
+- React Hook Form + Zod (formulários)
+- Expo SecureStore (armazenamento seguro de tokens)
 
-   ```bash
-   npm install
-   ```
+> A instalação das dependências não implementa as telas ou a integração. Elas serão desenvolvidas pelos integrantes.
 
-2. Start the app
+## Pré-requisitos
 
-   ```bash
-   npx expo start
-   ```
+- Node.js 24 LTS, npm e Git
+- Expo Go compatível com o SDK do projeto, ou ambiente de desenvolvimento Android/iOS
+- API do projeto em execução para testar dados reais
 
-In the output, you'll find options to open the app in a
+## Instalação
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
+```powershell
+npm install
+Copy-Item .env.example .env
+npx expo-doctor
+npx expo start -c
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+Abra o QR code com o Expo Go compatível. Para execução local com emulador, siga as instruções exibidas pelo Expo.
 
-### Other setup steps
+## Ambiente
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+`.env.example`:
 
-## Learn more
+```dotenv
+EXPO_PUBLIC_API_URL=http://192.168.1.100:3000
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+Troque `192.168.1.100` pelo IP do computador com a API. O celular deve conseguir acessá-lo pela rede. Em dispositivo físico, `localhost` não é o computador da API.
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+**Atenção:** variáveis `EXPO_PUBLIC_` ficam acessíveis no aplicativo compilado; não coloque segredos nelas.
 
-## Join the community
+## Estrutura prevista
 
-Join our community of developers creating universal apps.
+```text
+app/            # Rotas e layouts do Expo Router
+components/     # Componentes de UI compartilhados
+src/
+  features/     # Funcionalidades: auth, events, institutions, etc.
+  services/     # Cliente HTTP
+  hooks/        # Hooks reutilizáveis
+  constants/    # Constantes e tema
+global.css      # Diretivas do NativeWind
+tailwind.config.js
+metro.config.js
+babel.config.js
+```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Mantenha a convenção de `app/` ou `src/app/` gerada pelo template e ajuste o caminho de importação do `global.css` em `_layout.tsx`.
+
+## Comandos úteis
+
+```powershell
+npx expo start
+npx expo start -c
+npx expo-doctor
+npx tsc --noEmit
+```
+
+## Funcionalidades planejadas
+
+- Entrada, login, registro e recuperação de senha
+- Home, busca, detalhes e favoritos de eventos
+- Instituições, seguidores e comentários
+- Panorama IFSP: homenagens, calendário e documentos
+- Perfil e configurações
+
+## Contribuição
+
+1. Crie uma branch a partir de `develop`: `feat/landing-page`, `feat/auth-screens`, etc.
+2. Reutilize componentes e tokens visuais definidos pelo líder frontend.
+3. Ao finalizar a tela, valide navegação, estados de erro e carregamento.
+4. Abra PR para `develop` com imagens, testes realizados e link do cartão Trello.
+5. Não faça push direto para `main` ou `develop`.
+
+## Licença
+
+A definir pela equipe antes da publicação pública.
